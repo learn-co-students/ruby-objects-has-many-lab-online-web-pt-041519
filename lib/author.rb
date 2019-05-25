@@ -1,6 +1,10 @@
 class Author
   attr_accessor :name
   @@authors = []
+  def self.authors
+    @@authors
+  end
+
 
   def initialize(name)
     @name = name
@@ -18,12 +22,10 @@ class Author
   end
 
   def add_post_by_title(title)
-    post = Post.new(title)
-    @posts << post
-    post.author = self
+    self.add_post(Post.new(title))
   end
 
   def self.post_count
-    @@authors.map { |author| author.posts.length }.reduce(:+)
+    self.authors.map { |author| author.posts.length }.reduce(:+)
   end
 end
